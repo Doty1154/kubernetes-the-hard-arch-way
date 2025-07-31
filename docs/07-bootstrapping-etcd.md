@@ -2,63 +2,53 @@
 
 Kubernetes components are stateless and store cluster state in [etcd](https://github.com/etcd-io/etcd). In this lab you will bootstrap a single node etcd cluster.
 
-## Prerequisites
-
-Copy `etcd` binaries and systemd unit files to the `server` machine:
-
-```bash
-scp \
-  downloads/controller/etcd \
-  downloads/client/etcdctl \
-  units/etcd.service \
-  root@server:~/
-```
-
-The commands in this lab must be run on the `server` machine. Login to the `server` machine using the `ssh` command. Example:
-
-```bash
-ssh root@server
-```
-
-## Bootstrapping an etcd Cluster
-
-### Install the etcd Binaries
-
-Extract and install the `etcd` server and the `etcdctl` command line utility:
-
-```bash
-{
-  mv etcd etcdctl /usr/local/bin/
-}
-```
-
 ### Configure the etcd Server
+Create etcd.env to contain settings needed for kubernetes by editing it with sudo nano. 
 
 ```bash
-{
-  mkdir -p /etc/etcd /var/lib/etcd
-  chmod 700 /var/lib/etcd
-  cp ca.crt kube-api-server.key kube-api-server.crt \
-    /etc/etcd/
-}
+  
+  sudo mkdir -p /etc/etcd /var/lib/etcd
+  sudo chmod 700 /var/lib/etcd
+  sudo nano /etc/etcd/etcd.env
+
+```
+
+Paste in the following.
+```text
+# Kubernetes etcd arguments
+#
+# The ETCD_ARGS environment variable is used to provide flags and options to
+# etcd when running etcd.service.
+# See `etcd --help` for further information.
+#
+ETCD_ARGS= --name controller --initial-advertise-peer-urls http://127.0.0.1:2380 --listen-peer-urls http://127.0.0.1:2380 --listen-client-urls http://127.0.0.1:2379 --advertise-client-urls http://127.0.0.1:2379 --initial-cluster-token etcd-cluster-0 --initial-cluster controller=http://127.0.0.1:2380 --initial-cluster-state new --data-dir=/var/lib/etcd
+
+```
+Then modify a systemd override service conf to contain the launch settings.
+
+
+```bash
+  sudo nano /etc/systemd/system/etcd.service.d/override.conf
+
+```
+
+```text
+ [Service]
+ ExecStart=
+ ExecStart=-/usr/bin/etcd $ETCD_ARGS
+ EnvironmentFile=-/etc/etcd/etcd.env
 ```
 
 Each etcd member must have a unique name within an etcd cluster. Set the etcd name to match the hostname of the current compute instance:
 
-Create the `etcd.service` systemd unit file:
+
+### Copy The Certificates And Start the etcd Server
 
 ```bash
-mv etcd.service /etc/systemd/system/
-```
+  sudo cp -v ./certs/ca.crt ./certs/kube-api-server.key ./certs/kube-api-server.crt /etc/etcd/
+  sudo systemctl daemon-reload
+  sudo systemctl enable etcd --now
 
-### Start the etcd Server
-
-```bash
-{
-  systemctl daemon-reload
-  systemctl enable etcd
-  systemctl start etcd
-}
 ```
 
 ## Verification
