@@ -37,6 +37,7 @@ Modify the following in the flannel-values.yaml
 nano ./core-services/flannel/flannel-values.yaml
 ```
 ```text
+  podCidr: "10.244.0.0/16" -> podCidr: "10.200.0.0/16"
   enableNFTables: false ->   enableNFTables: true
   backend: "vxlan" -> backend: "host-gw"
 ```
