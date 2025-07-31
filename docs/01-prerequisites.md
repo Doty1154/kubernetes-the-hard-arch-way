@@ -4,7 +4,7 @@ In this lab you will review the machine requirements necessary to follow this tu
 
 ## Machines
 
-This tutorial allows you run run a single kubernetes node (which shouldn't be used for production as production systems should have atleast 3 machines in place). The following table lists the four machines and their CPU, memory, and storage requirements.
+This tutorial allows you run a single dev kubernetes node (which shouldn't be used for production as production systems should have atleast 3 machines in place). The following table lists the four machines and their CPU, memory, and storage requirements.
 
 | Name    | Description            | CPU | RAM   | Storage |
 |---------|------------------------|-----|-------|---------|
@@ -28,4 +28,4 @@ You should see something similar to the following output:
 
 ```
 
-Next: [setting-up-the-jumpbox](02-jumpbox.md)
+Next: [setting-up-the-devmachine](02-devmachineossetup.md)
