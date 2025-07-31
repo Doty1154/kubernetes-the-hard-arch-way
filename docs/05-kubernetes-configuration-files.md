@@ -12,37 +12,32 @@ When generating kubeconfig files for Kubelets the client certificate matching th
 
 > The following commands must be run in the same directory used to generate the SSL certificates during the [Generating TLS Certificates](04-certificate-authority.md) lab.
 
-Generate a kubeconfig file for the `node-0` and `node-1` worker nodes:
+Generate a kubeconfig file for worker kubernetes components:
 
 ```bash
-for host in node-0 node-1; do
-  kubectl config set-cluster kubernetes-the-hard-way \
-    --certificate-authority=ca.crt \
+  cd ~/kubernetes-the-hard-arch-way
+  mkdir kubeconfigs
+
+  kubectl config set-cluster devcluster \
+    --certificate-authority=./certs/ca.crt \
     --embed-certs=true \
     --server=https://server.kubernetes.local:6443 \
-    --kubeconfig=${host}.kubeconfig
+    --kubeconfig=./kubeconfigs/kubelet.kubeconfig
 
-  kubectl config set-credentials system:node:${host} \
-    --client-certificate=${host}.crt \
-    --client-key=${host}.key \
+  kubectl config set-credentials system:node:kubelet \
+    --client-certificate=./certs/kubelet.crt \
+    --client-key=./certs/kubelet.key \
     --embed-certs=true \
-    --kubeconfig=${host}.kubeconfig
+    --kubeconfig=./kubeconfigs/kubelet.kubeconfig
 
   kubectl config set-context default \
-    --cluster=kubernetes-the-hard-way \
-    --user=system:node:${host} \
-    --kubeconfig=${host}.kubeconfig
+    --cluster=devcluster \
+    --user=system:node:kubelet \
+    --kubeconfig=./kubeconfigs/kubelet.kubeconfig
 
   kubectl config use-context default \
-    --kubeconfig=${host}.kubeconfig
-done
-```
+    --kubeconfig=./kubeconfigs/kubelet.kubeconfig
 
-Results:
-
-```text
-node-0.kubeconfig
-node-1.kubeconfig
 ```
 
 ### The kube-proxy Kubernetes Configuration File
@@ -50,33 +45,27 @@ node-1.kubeconfig
 Generate a kubeconfig file for the `kube-proxy` service:
 
 ```bash
-{
-  kubectl config set-cluster kubernetes-the-hard-way \
-    --certificate-authority=ca.crt \
+
+  kubectl config set-cluster devcluster \
+    --certificate-authority=./certs/ca.crt \
     --embed-certs=true \
     --server=https://server.kubernetes.local:6443 \
-    --kubeconfig=kube-proxy.kubeconfig
+    --kubeconfig=./kubeconfigs/kube-proxy.kubeconfig
 
   kubectl config set-credentials system:kube-proxy \
-    --client-certificate=kube-proxy.crt \
-    --client-key=kube-proxy.key \
+    --client-certificate=./certs/kube-proxy.crt \
+    --client-key=./certs/kube-proxy.key \
     --embed-certs=true \
-    --kubeconfig=kube-proxy.kubeconfig
+    --kubeconfig=./kubeconfigs/kube-proxy.kubeconfig
 
   kubectl config set-context default \
-    --cluster=kubernetes-the-hard-way \
+    --cluster=devcluster \
     --user=system:kube-proxy \
-    --kubeconfig=kube-proxy.kubeconfig
+    --kubeconfig=./kubeconfigs/kube-proxy.kubeconfig
 
   kubectl config use-context default \
-    --kubeconfig=kube-proxy.kubeconfig
-}
-```
+    --kubeconfig=./kubeconfigs/kube-proxy.kubeconfig
 
-Results:
-
-```text
-kube-proxy.kubeconfig
 ```
 
 ### The kube-controller-manager Kubernetes Configuration File
@@ -84,33 +73,27 @@ kube-proxy.kubeconfig
 Generate a kubeconfig file for the `kube-controller-manager` service:
 
 ```bash
-{
-  kubectl config set-cluster kubernetes-the-hard-way \
-    --certificate-authority=ca.crt \
+
+  kubectl config set-cluster devcluster \
+    --certificate-authority=./certs/ca.crt \
     --embed-certs=true \
     --server=https://server.kubernetes.local:6443 \
-    --kubeconfig=kube-controller-manager.kubeconfig
+    --kubeconfig=./kubeconfigs/kube-controller-manager.kubeconfig
 
   kubectl config set-credentials system:kube-controller-manager \
-    --client-certificate=kube-controller-manager.crt \
-    --client-key=kube-controller-manager.key \
+    --client-certificate=./certs/kube-controller-manager.crt \
+    --client-key=./certs/kube-controller-manager.key \
     --embed-certs=true \
-    --kubeconfig=kube-controller-manager.kubeconfig
+    --kubeconfig=./kubeconfigs/kube-controller-manager.kubeconfig
 
   kubectl config set-context default \
-    --cluster=kubernetes-the-hard-way \
+    --cluster=devcluster \
     --user=system:kube-controller-manager \
-    --kubeconfig=kube-controller-manager.kubeconfig
+    --kubeconfig=./kubeconfigs/kube-controller-manager.kubeconfig
 
   kubectl config use-context default \
-    --kubeconfig=kube-controller-manager.kubeconfig
-}
-```
+    --kubeconfig=./kubeconfigs/kube-controller-manager.kubeconfig
 
-Results:
-
-```text
-kube-controller-manager.kubeconfig
 ```
 
 
@@ -119,92 +102,70 @@ kube-controller-manager.kubeconfig
 Generate a kubeconfig file for the `kube-scheduler` service:
 
 ```bash
-{
-  kubectl config set-cluster kubernetes-the-hard-way \
-    --certificate-authority=ca.crt \
+
+  kubectl config set-cluster devcluster \
+    --certificate-authority=./certs/ca.crt \
     --embed-certs=true \
     --server=https://server.kubernetes.local:6443 \
-    --kubeconfig=kube-scheduler.kubeconfig
+    --kubeconfig=./kubeconfigs/kube-scheduler.kubeconfig
 
   kubectl config set-credentials system:kube-scheduler \
-    --client-certificate=kube-scheduler.crt \
-    --client-key=kube-scheduler.key \
+    --client-certificate=./certs/kube-scheduler.crt \
+    --client-key=./certs/kube-scheduler.key \
     --embed-certs=true \
-    --kubeconfig=kube-scheduler.kubeconfig
+    --kubeconfig=./kubeconfigs/kube-scheduler.kubeconfig
 
   kubectl config set-context default \
-    --cluster=kubernetes-the-hard-way \
+    --cluster=devcluster \
     --user=system:kube-scheduler \
-    --kubeconfig=kube-scheduler.kubeconfig
+    --kubeconfig=./kubeconfigs/kube-scheduler.kubeconfig
 
   kubectl config use-context default \
-    --kubeconfig=kube-scheduler.kubeconfig
-}
+    --kubeconfig=./kubeconfigs/kube-scheduler.kubeconfig
+
 ```
 
-Results:
-
-```text
-kube-scheduler.kubeconfig
-```
 
 ### The admin Kubernetes Configuration File
 
 Generate a kubeconfig file for the `admin` user:
 
 ```bash
-{
-  kubectl config set-cluster kubernetes-the-hard-way \
-    --certificate-authority=ca.crt \
+
+  kubectl config set-cluster devcluster \
+    --certificate-authority=./certs/ca.crt \
     --embed-certs=true \
     --server=https://127.0.0.1:6443 \
-    --kubeconfig=admin.kubeconfig
+    --kubeconfig=./kubeconfigs/admin.kubeconfig
 
   kubectl config set-credentials admin \
-    --client-certificate=admin.crt \
-    --client-key=admin.key \
+    --client-certificate=./certs/admin.crt \
+    --client-key=./certs/admin.key \
     --embed-certs=true \
-    --kubeconfig=admin.kubeconfig
+    --kubeconfig=./kubeconfigs/admin.kubeconfig
 
   kubectl config set-context default \
-    --cluster=kubernetes-the-hard-way \
+    --cluster=devcluster \
     --user=admin \
-    --kubeconfig=admin.kubeconfig
+    --kubeconfig=./kubeconfigs/admin.kubeconfig
 
   kubectl config use-context default \
-    --kubeconfig=admin.kubeconfig
-}
-```
+    --kubeconfig=./kubeconfigs/admin.kubeconfig
 
-Results:
-
-```text
-admin.kubeconfig
 ```
 
 ## Distribute the Kubernetes Configuration Files
 
-Copy the `kubelet` and `kube-proxy` kubeconfig files to the `node-0` and `node-1` machines:
+Copy the `kubelet` and `kube-proxy` kubeconfig files for the services.
 
 ```bash
-for host in node-0 node-1; do
-  ssh root@${host} "mkdir -p /var/lib/{kube-proxy,kubelet}"
 
-  scp kube-proxy.kubeconfig \
-    root@${host}:/var/lib/kube-proxy/kubeconfig \
+  sudo mkdir -p /var/lib/{kube-proxy,kubelet}
 
-  scp ${host}.kubeconfig \
-    root@${host}:/var/lib/kubelet/kubeconfig
-done
-```
+  sudo cp -v ./kubeconfigs/kube-proxy.kubeconfig /var/lib/kube-proxy/kubeconfig 
 
-Copy the `kube-controller-manager` and `kube-scheduler` kubeconfig files to the `server` machine:
+  sudo cp -v ./kubeconfigs/kubelet.kubeconfig /var/lib/kubelet/kubeconfig
 
-```bash
-scp admin.kubeconfig \
-  kube-controller-manager.kubeconfig \
-  kube-scheduler.kubeconfig \
-  root@server:~/
 ```
 
 Next: [Generating the Data Encryption Config and Key](06-data-encryption-keys.md)
