@@ -2,32 +2,30 @@
 
 In this lab you will review the machine requirements necessary to follow this tutorial.
 
-## Virtual or Physical Machines
+## Machines
 
-This tutorial requires four (4) virtual or physical ARM64 or AMD64 machines running Debian 12 (bookworm). The following table lists the four machines and their CPU, memory, and storage requirements.
+This tutorial allows you run run a single kubernetes node (which shouldn't be used for production as production systems should have atleast 3 machines in place). The following table lists the four machines and their CPU, memory, and storage requirements.
 
 | Name    | Description            | CPU | RAM   | Storage |
 |---------|------------------------|-----|-------|---------|
-| jumpbox | Administration host    | 1   | 512MB | 10GB    |
 | server  | Kubernetes server      | 1   | 2GB   | 20GB    |
-| node-0  | Kubernetes worker node | 1   | 2GB   | 20GB    |
-| node-1  | Kubernetes worker node | 1   | 2GB   | 20GB    |
 
-How you provision the machines is up to you, the only requirement is that each machine meet the above system requirements including the machine specs and OS version. Once you have all four machines provisioned, verify the OS requirements by viewing the `/etc/os-release` file:
-
+How you provision the machines is up to you, the only requirement is that each machine meet the above system requirements including the machine specs.
+Ensure that your system is up to date 
 ```bash
-cat /etc/os-release
+sudo pacman -Syu
 ```
 
 You should see something similar to the following output:
 
 ```text
-PRETTY_NAME="Debian GNU/Linux 12 (bookworm)"
-NAME="Debian GNU/Linux"
-VERSION_ID="12"
-VERSION="12 (bookworm)"
-VERSION_CODENAME=bookworm
-ID=debian
+:: Synchronizing package databases...
+ core is up to date
+ extra is up to date
+ multilib is up to date
+:: Starting full system upgrade...
+ there is nothing to do
+
 ```
 
 Next: [setting-up-the-jumpbox](02-jumpbox.md)
