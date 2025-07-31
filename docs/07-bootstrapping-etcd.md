@@ -33,10 +33,10 @@ Then modify a systemd override service conf to contain the launch settings.
 ```
 Copy paste these settings in
 ```text
- [Service]
- ExecStart=
- ExecStart=-/usr/bin/etcd $ETCD_ARGS
- EnvironmentFile=-/etc/etcd/etcd.env
+[Service]
+ExecStart=
+ExecStart=-/usr/bin/etcd $ETCD_ARGS
+EnvironmentFile=-/etc/etcd/etcd.env
 ```
 
 Each etcd member must have a unique name within an etcd cluster. Set the etcd name to match the hostname of the current compute instance:
@@ -45,7 +45,9 @@ Each etcd member must have a unique name within an etcd cluster. Set the etcd na
 ### Copy The Certificates And Start the etcd Server
 
 ```bash
-  sudo cp -v ./certs/ca.crt ./certs/kube-api-server.key ./certs/kube-api-server.crt /etc/etcd/
+  sudo cp -v ./certs/ca.crt /etc/etcd/
+  sudo cp -v ./certs/kube-api-server.key /etc/etcd/
+  sudo cp -v ./certs/kube-api-server.crt /etc/etcd/
   sudo systemctl daemon-reload
   sudo systemctl enable etcd --now
 
