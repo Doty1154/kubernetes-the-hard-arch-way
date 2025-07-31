@@ -6,7 +6,6 @@ Kubernetes components are stateless and store cluster state in [etcd](https://gi
 Create etcd.env to contain settings needed for kubernetes by editing it with sudo nano. 
 
 ```bash
-  
   sudo mkdir -p /etc/etcd /var/lib/etcd
   sudo chmod 700 /var/lib/etcd
   sudo nano /etc/etcd/etcd.env
