@@ -17,8 +17,8 @@ export ENCRYPTION_KEY=$(head -c 32 /dev/urandom | base64)
 Create the `encryption-config.yaml` encryption config file:
 
 ```bash
-envsubst < configs/encryption-config.yaml \
-  > encryption-config.yaml
+cd ~/kubernetes-the-hard-arch-way
+envsubst < configs/encryption-config.yaml > encryption-config.yaml
 ```
 
 Next: [Bootstrapping the etcd Cluster](07-bootstrapping-etcd.md)
