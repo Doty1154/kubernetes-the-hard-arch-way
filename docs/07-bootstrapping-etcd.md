@@ -20,7 +20,7 @@ Paste in the following.
 # etcd when running etcd.service.
 # See `etcd --help` for further information.
 #
-ETCD_ARGS= --name controller --initial-advertise-peer-urls http://127.0.0.1:2380 --listen-peer-urls http://127.0.0.1:2380 --listen-client-urls http://127.0.0.1:2379 --advertise-client-urls http://127.0.0.1:2379 --initial-cluster-token etcd-cluster-0 --initial-cluster controller=http://127.0.0.1:2380 --initial-cluster-state new --data-dir=/var/lib/etcd
+ETCD_ARGS=--name controller --initial-advertise-peer-urls http://127.0.0.1:2380 --listen-peer-urls http://127.0.0.1:2380 --listen-client-urls http://127.0.0.1:2379 --advertise-client-urls http://127.0.0.1:2379 --initial-cluster-token etcd-cluster-0 --initial-cluster controller=http://127.0.0.1:2380 --initial-cluster-state new --data-dir=/var/lib/etcd
 
 ```
 Then modify a systemd override service conf to contain the launch settings.
