@@ -26,7 +26,7 @@ ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 
 # Add the following to the file
-127.0.0.1 cluster.kubernetes.local kubernetes.local cluster
+127.0.0.1 server.kubernetes.local cluster.kubernetes.local kubernetes.local cluster
 ```
 
 Next: [Provisioning a CA and Generating TLS Certificates](04-certificate-authority.md)
