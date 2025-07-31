@@ -75,4 +75,4 @@ NAME     STATUS   ROLES    AGE    VERSION
 kubelet   Ready    <none>   10m   v1.32.3
 ```
 
-Next: [Provisioning Pod Network Routes](11-pod-network-routes.md)
+Next: [Test installing some apps](12-smoke-test.md)
