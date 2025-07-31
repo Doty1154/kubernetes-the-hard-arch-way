@@ -6,10 +6,6 @@ On your machine you'll need to setup the Kubernetes control plane and the worker
 
 In this will help you setup a local cluster with a generic name. If you're going to want multiple machines in the cluster in the future, please use the [original tutorial](https://github.com/kelseyhightower/kubernetes-the-hard-way/)
 
-To configure the hostname for each machine, run the following commands on the `jumpbox`.
-
-Set the hostname on each machine listed in the `machines.txt` file:
-
 ## Adding `/etc/hosts` Entries To Your Machine
 
 In this section you will append(add to the end of the text file) hostname entries to your `/etc/hosts` file on your machine
