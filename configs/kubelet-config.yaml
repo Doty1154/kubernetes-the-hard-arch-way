@@ -11,12 +11,12 @@ authentication:
 authorization:
   mode: Webhook
 cgroupDriver: systemd
-containerRuntimeEndpoint: "unix:///var/run/containerd/containerd.sock"
+containerRuntimeEndpoint: "unix:///run/crio/crio.sock"
 enableServer: true
 failSwapOn: false
-maxPods: 16
+maxPods: 160
 memorySwap:
-  swapBehavior: NoSwap
+  swapBehavior: LimitedSwap
 port: 10250
 resolvConf: "/etc/resolv.conf"
 registerNode: true
