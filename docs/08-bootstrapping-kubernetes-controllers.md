@@ -55,7 +55,7 @@ sudo cp -v ./kubeconfigs/kube-controller-manager.kubeconfig /var/lib/kubernetes/
 Configure the `kube-controller-manager.service` service launch arguments ([This is based on the original source systemd unit](https://github.com/kelseyhightower/kubernetes-the-hard-way/blob/master/units/kube-controller-manager.service)):
 
 ```bash
-sudo nano /etc/kubernetes/kube-apiserver.env
+sudo nano /etc/kubernetes/kube-controller-manager.env
 
 ```
 Edit the last line with the following.
