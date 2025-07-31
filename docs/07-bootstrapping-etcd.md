@@ -27,10 +27,11 @@ Then modify a systemd override service conf to contain the launch settings.
 
 
 ```bash
+  sudo mkdir /etc/systemd/system/etcd.service.d
   sudo nano /etc/systemd/system/etcd.service.d/override.conf
 
 ```
-
+Copy paste these settings in
 ```text
  [Service]
  ExecStart=
